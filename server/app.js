@@ -5,7 +5,14 @@ const express = require('express');
 const app = express();
 const Port = 8000;
 
-// routes
+// middlewares
+const middleware = (req,res,next) =>{
+console.log("this is middleware");
+next();
+}
+
+// ----------routes----------//
+
 // home
 app.get('/',async (req, res) => {
     try {
@@ -17,7 +24,7 @@ app.get('/',async (req, res) => {
 });
 
 // about
-app.get('/about',async (req, res) => {
+app.get('/about', middleware, async (req, res) => {
     try {
         res.send("<h1>About page</h1>")
     }
