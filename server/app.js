@@ -1,13 +1,18 @@
 // modules
+const dotenv = require('dotenv');
 const express = require('express');
+const mongoose = require('mongoose');
+
+dotenv.config({ path:'./config.env'});
+require('./db/conn')
 
 // other includes
 const app = express();
-const Port = 8000;
+const Port = process.env.PORT;
 
 // middlewares
 const middleware = (req,res,next) =>{
-console.log("this is middleware");
+    console.log("middleware called ");
 next();
 }
 
@@ -66,6 +71,6 @@ app.get('/signup',async (req, res) => {
 
 // server listening
 app.listen(Port,()=>{
-    console.log("listening on port " + Port);
+    console.log("listening on Port " + Port);
     console.log('Your server available at http://localhost:8000')
 });
