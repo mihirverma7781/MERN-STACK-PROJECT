@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 dotenv.config({ path:'./config.env'});
 require('./db/conn')
+const User = require('./model/userSchema')
 
 // other includes
 const app = express();
