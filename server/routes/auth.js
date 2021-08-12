@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 require("../db/conn");
 const User = require("../model/userSchema");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // GET => home
 router.get("/", function (req, res) {
@@ -52,16 +54,20 @@ router.post("/signin", async (req, res) => {
     }
 
     const userLogin = await User.findOne({ email: email });
+    if(userLogin){
+      const isAuthenticated = await bcrypt.compare(password,userLogin.password)
 
-    if (!userLogin) {
-      return res.status(400).json({ error: "invalid credentials" });
-    }
-    
-    if(userLogin && userLogin.password === password) {
-        res.status(200).json({message: "Login Successfully"})
+      const token = await userLogin.generateAuthToken();
+      console.log(token);
+      if(!isAuthenticated) {
+        res.status(403).json({ error: "invalid credentials" });
+      }
+      else{
+        res.status(200).json({message: "user logged in successfully"});
+      }
     }
     else{
-        res.status(400).send("invalid credentials")
+      res.status(403).json({ error: "invalid credentials" });
     }
   } catch (err) {
     res.status(500).json("error: " + err.message);
