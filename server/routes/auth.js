@@ -22,12 +22,9 @@ router.post("/register", async (req, res) => {
     const userExist = await User.findOne({ email: email });
     if (userExist) {
       return res.status(422).json({ error: "email already exist" });
-    }
-    else if (password != cpassword){
-      return res.status(422).json({ error: "password not match"})
-    }
-    else{
-
+    } else if (password != cpassword) {
+      return res.status(422).json({ error: "password not match" });
+    } else {
       const user = new User({
         name,
         email,
@@ -36,11 +33,10 @@ router.post("/register", async (req, res) => {
         password,
         cpassword,
       });
-  
+
       const userRegister = await user.save();
       res.status(201).json({ message: "User saved successfully" });
     }
-
   } catch (err) {
     console.log("error: " + err.message);
   }
@@ -54,19 +50,24 @@ router.post("/signin", async (req, res) => {
     }
 
     const userLogin = await User.findOne({ email: email });
-    if(userLogin){
-      const isAuthenticated = await bcrypt.compare(password,userLogin.password)
-
+    if (userLogin) {
+      const isAuthenticated = await bcrypt.compare(
+        password,
+        userLogin.password
+      );
       const token = await userLogin.generateAuthToken();
-      console.log(token);
-      if(!isAuthenticated) {
+
+      res.cookie("jwtoken", token, {
+        expires: new Date(Date.now() + 258900000),
+        httpOnly: true,
+      });
+
+      if (!isAuthenticated) {
         res.status(403).json({ error: "invalid credentials" });
+      } else {
+        res.status(200).json({ message: "user logged in successfully" });
       }
-      else{
-        res.status(200).json({message: "user logged in successfully"});
-      }
-    }
-    else{
+    } else {
       res.status(403).json({ error: "invalid credentials" });
     }
   } catch (err) {
