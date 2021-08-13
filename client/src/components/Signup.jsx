@@ -12,6 +12,7 @@ const Signup = () => {
       animationData: require("../assets/Blogging.json"),
     });
   }, []);
+
   return (
     <>
       <section className="signup">
@@ -54,16 +55,16 @@ const Signup = () => {
                   />
                 </div>
                 <div class="form-group">
-                  <label for="mobile">
+                  <label for="phone">
                     <i class="zmdi zmdi-smartphone-iphone zmdi-hc-lg "></i>
                   </label>
                   <input
                     type="number"
                     className="form-control"
-                    id="mobile"
+                    id="phone"
                     value=""
-                    name="mobile"
-                    aria-describedby="mobile"
+                    name="phone"
+                    aria-describedby="phone"
                     placeholder="Your Mobile"
                     autocomplete="off"
                   />
@@ -111,7 +112,7 @@ const Signup = () => {
                     autocomplete="off"
                   />
                 </div>
-                <button type="submit" className="btn btn-s btn-primary">
+                <button type="submit" name="signup" id="signup" className="btn btn-s btn-primary">
                   Submit ✔
                 </button>
               </form>

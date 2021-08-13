@@ -55,7 +55,7 @@ const Login = () => {
                     autocomplete="off"
                   />
                 </div>
-                <button type="submit" className="btn btn-s btn-primary">
+                <button type="submit" name="login" id="login" className="btn btn-s btn-primary">
                   Login ✔
                 </button>
               </form>

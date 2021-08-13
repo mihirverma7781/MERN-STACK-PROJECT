@@ -69,17 +69,17 @@ body {
   margin: auto 20px auto 0;
   color: var(--secondary-color) !important;
 }
-input {
+textarea,input {
   border: none !important;
   outline: none !important;
   border-radius: 10px !important;
   background-color: rgb(245, 245, 255) !important;
   padding:10px !important;
 }
-input:focus{
+textarea:focus,input:focus{
   box-shadow:0px 0px 25px var(--placeholder)!important;
 }
-input::-webkit-input-placeholder{
+textarea::-webkit-input-placeholder,input::-webkit-input-placeholder{
   color: var(--placeholder) !important;
 }
 .btn-primary{
@@ -148,4 +148,72 @@ input::-webkit-input-placeholder{
 
 .login-section{
   margin-top: 7rem !important;
+}
+/* ===================================================== */
+/* =====================Contact=========================== */
+
+.contact{
+  display: flex;
+  width:100%;
+  padding:3rem;
+}
+.c-details h5{
+color: var(--primary-color);
+}
+.contact-image{
+  width: 50% !important;
+}
+.contact-info{
+  width: 50% !important;
+}
+.contact-upper{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 4rem;
+}
+.contact-info h2{
+  font-weight: 800;
+  margin-bottom:2rem
+}
+.c-details{
+  display: flex;
+  flex-direction:column;
+  width:25%;
+  padding: 12px 30px;
+  border-radius: 20px;
+  box-shadow:0 0 20px var(--shadow-color);
+}
+/* =================================================== */
+/* =====================Home=========================== */
+.home-header{
+  font-weight: 800;
+}
+
+.h-btn{
+  padding: 12px 30px;
+  text-decoration: none !important;
+ 
+}
+.home-btns{
+  margin-top: 3rem !important;
+  font-weight: 600;
+}
+.h-btn:hover{
+  box-shadow: 0 0 30px var(--dark-shadow) !important;
+}
+.h-signup{
+  margin-left: 1rem;
+}
+.home{
+  display: flex;
+  height:75vh;
+  align-items: center;
+  padding: 5rem;
+}
+/* =================================================== */
+/* =====================about=========================== */
+.emp-profile {
+  width: 800px;
+  border: 2px solid black;
 }
