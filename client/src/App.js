@@ -1,5 +1,6 @@
 import React from 'react'
 import Home from './components/Home'
+import Error from './components/Error'
 import About from './components/About'
 import Contact from './components/Contact'
 import Login from './components/Login'
@@ -17,6 +18,7 @@ const App = () => {
       <Route path="/contact" component={Contact}/>
       <Route path="/login" component={Login}/>
       <Route path="/signup" component={Signup}/>
+      <Route path="/error" component={Error}/>
       </Switch>
     </div>
   )
