@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import lottie from "lottie-web";
 
 const Home = () => {
+
+
+
+
   const home = useRef(null);
   useEffect(() => {
     lottie.loadAnimation({

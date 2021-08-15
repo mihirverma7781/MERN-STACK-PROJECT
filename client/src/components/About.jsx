@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { ReactComponent as Welcome } from ".././assets/Welcome.svg";
 const About = () => {
   return (
@@ -61,29 +62,29 @@ const About = () => {
               <div className="profile-work">
                 <p>Work Links:</p>
                 <div className="work-list">
-                <a href="https://google.com" target="_blank">
+                <Link to="https://google.com">
                   Google Home
-                </a>
+                </Link>
                 </div>
                 <div className="work-list">
-                <a href="https://google.com" target="_blank">
+                <Link to="https://google.com">
                   Google Home
-                </a>
+                </Link>
                 </div>
                 <div className="work-list">
-                <a href="https://google.com" target="_blank">
+                <Link to="https://google.com">
                   Google Home
-                </a>
+                </Link>
                 </div>
                 <div className="work-list">
-                <a href="https://google.com" target="_blank">
+                <Link to="https://google.com">
                   Google Home
-                </a>
+                </Link>
                 </div>
                 <div className="work-list">
-                <a href="https://google.com" target="_blank">
+                <Link to="https://google.com">
                   Google Home
-                </a>
+                </Link>
                 </div>
               </div>
             </div>
