@@ -1,8 +1,44 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import lottie from "lottie-web";
 
 const Login = () => {
+  const history = useHistory();
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  let name, value;
+  const handleChangeLogin = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setLogin({
+      ...login,
+      [name]: value,
+    });
+  };
+
+  const userLogin = async (e) => {
+    e.preventDefault();
+    const { email, password } = login;
+    const res = await fetch("/signin", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    const data = res.json();
+    if (data.status === 400) {
+      window.alert("Invalid login");
+    } else {
+      window.alert("login successfully");
+      history.push("/");
+    }
+  };
+
   const LoginContainer = useRef(null);
   useEffect(() => {
     lottie.loadAnimation({
@@ -26,14 +62,14 @@ const Login = () => {
               <form className="s-form" id="s-form" action="" method="post">
                 <div class="form-group">
                   <label for="email">
-                    {" "}
                     <i class="zmdi zmdi-email zmdi-hc-lg"></i>
                   </label>
                   <input
                     type="email"
                     className="form-control"
                     id="email"
-                    value=""
+                    onChange={handleChangeLogin}
+                    value={login.email}
                     name="email"
                     aria-describedby="emailHelp"
                     placeholder="Your Email"
@@ -48,14 +84,21 @@ const Login = () => {
                   <input
                     type="password"
                     name="password"
-                    value=""
+                    value={login.password}
                     className="form-control"
+                    onChange={handleChangeLogin}
                     id="password"
                     placeholder="Password"
                     autocomplete="off"
                   />
                 </div>
-                <button type="submit" name="login" id="login" className="btn btn-s btn-primary">
+                <button
+                  type="submit"
+                  name="login"
+                  id="login"
+                  className="btn btn-s btn-primary"
+                  onClick={userLogin}
+                >
                   Login ✔
                 </button>
               </form>

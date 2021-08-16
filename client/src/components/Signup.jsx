@@ -45,7 +45,7 @@ const Signup = () => {
     } else {
       window.alert("Registration Succesfull");
       console.log("Registration Succesfull");
-      history.pushState("/login");
+      history.push("/login");
     }
   };
 
