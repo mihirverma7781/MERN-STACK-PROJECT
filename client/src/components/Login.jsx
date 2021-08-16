@@ -30,8 +30,10 @@ const Login = () => {
         password,
       }),
     });
-    const data = res.json();
-    if (data.status === 400) {
+    const data = await res.json();
+    console.log(data);
+    console.log(res);
+    if (res.status === 400 || !data) {
       window.alert("Invalid login");
     } else {
       window.alert("login successfully");

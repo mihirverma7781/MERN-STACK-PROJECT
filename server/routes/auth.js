@@ -63,15 +63,15 @@ router.post("/signin", async (req, res) => {
       });
 
       if (!isAuthenticated) {
-        res.status(403).json({ error: "invalid credentials" });
+        res.status(400).json({ error: "invalid credentials" });
       } else {
         res.status(200).json({ message: "user logged in successfully" });
       }
     } else {
-      res.status(403).json({ error: "invalid credentials" });
+      res.status(400).json({ error: "invalid credentials" });
     }
   } catch (err) {
-    res.status(500).json("error: " + err.message);
+    res.status(400).json("error: " + err.message);
   }
 });
 
