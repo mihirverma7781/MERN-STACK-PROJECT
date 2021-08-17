@@ -1,11 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as Welcome } from ".././assets/Welcome.svg";
 const About = () => {
+  const history = useHistory();
+  const [userData, setUserData] = useState({});
+  const callAbout = async () => {
+    try {
+      console.log("in a try");
+      const res = await fetch("/about", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      const data = await res.json();
+      setUserData(data);
+      console.log(data);
+      console.log("userdata "+ userData);
+      if (!res.status === 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    } catch (err) {
+      console.log(err);
+      history.push("/login");
+    }
+  };
+  useEffect(() => {
+    callAbout();
+  }, []);
+
   return (
     <>
       <div className="container emp-profile">
-        <form action="" method="get">
+        <form method="GET">
           <div className="row">
             <div className="col-md-4 about-img">
               <Welcome />
@@ -13,8 +43,8 @@ const About = () => {
 
             <div className="col-md-6 name-sec">
               <div className="profile-head">
-                <h5>Mihir Verma</h5>
-                <h6>Full Stack Developer</h6>
+                <h5>{userData.name}</h5>
+                <h6>{userData.work}</h6>
                 <p className="profile-rating mt-3 mb-5">
                   Ratings:<span className="ratings"> 5/5</span>{" "}
                 </p>
@@ -32,7 +62,7 @@ const About = () => {
                       About
                     </a>
                   </li>
-                   <li className="nav-item inner-navs">
+                  <li className="nav-item inner-navs">
                     <a
                       className="nav-link "
                       id="profile-tab"
@@ -62,29 +92,19 @@ const About = () => {
               <div className="profile-work">
                 <p>Work Links:</p>
                 <div className="work-list">
-                <Link to="https://google.com">
-                  Google Home
-                </Link>
+                  <Link to="https://google.com">Google Home</Link>
                 </div>
                 <div className="work-list">
-                <Link to="https://google.com">
-                  Google Home
-                </Link>
+                  <Link to="https://google.com">Google Home</Link>
                 </div>
                 <div className="work-list">
-                <Link to="https://google.com">
-                  Google Home
-                </Link>
+                  <Link to="https://google.com">Google Home</Link>
                 </div>
                 <div className="work-list">
-                <Link to="https://google.com">
-                  Google Home
-                </Link>
+                  <Link to="https://google.com">Google Home</Link>
                 </div>
                 <div className="work-list">
-                <Link to="https://google.com">
-                  Google Home
-                </Link>
+                  <Link to="https://google.com">Google Home</Link>
                 </div>
               </div>
             </div>
@@ -101,7 +121,7 @@ const About = () => {
                       <label htmlFor="User ID">User ID</label>
                     </div>
                     <div className="col-md-6">
-                      <p>5466555445</p>
+                      <p>{userData._id}</p>
                     </div>
                   </div>
                   <div className="row ">
@@ -109,7 +129,7 @@ const About = () => {
                       <label htmlFor="User ID">Name</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Mihir Verma</p>
+                      <p>{userData.name}</p>
                     </div>
                   </div>
                   <div className="row ">
@@ -117,7 +137,7 @@ const About = () => {
                       <label htmlFor="User ID">Email</label>
                     </div>
                     <div className="col-md-6">
-                      <p>mihirv7781@gmail.com</p>
+                      <p>{userData.email}</p>
                     </div>
                   </div>
                   <div className="row ">
@@ -125,7 +145,7 @@ const About = () => {
                       <label htmlFor="User ID">Phone</label>
                     </div>
                     <div className="col-md-6">
-                      <p>+91 85462-54756</p>
+                      <p>+91 {userData.phone}</p>
                     </div>
                   </div>
                   <div className="row ">
@@ -133,7 +153,7 @@ const About = () => {
                       <label htmlFor="User ID">Profession</label>
                     </div>
                     <div className="col-md-6">
-                      <p>WEB Developer</p>
+                      <p>{userData.work}</p>
                     </div>
                   </div>
                 </div>
