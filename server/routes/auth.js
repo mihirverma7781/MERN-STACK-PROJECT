@@ -69,10 +69,10 @@ router.post("/signin", async (req, res) => {
         res.status(200).json({ message: "user logged in successfully" });
       }
     } else {
-      res.status(400).json({ error: "invalid credentials" });
+      res.status(400).json({ error: "invalid credentials2" });
     }
   } catch (err) {
-    res.status(400).json("error: " + err.message);
+    res.status(400).json("error3: " + err.message);
   }
 });
 
@@ -80,7 +80,12 @@ router.post("/signin", async (req, res) => {
 router.get('/about',authenticate, (req, res) => {
     console.log("about  route")
       res.send(req.rootUser); 
-}
-);
+});
+
+// getting data
+router.get('/getdata',authenticate, (req, res) => {
+      console.log("get  route")
+      res.send(req.rootUser); 
+});
 
 module.exports = router;
