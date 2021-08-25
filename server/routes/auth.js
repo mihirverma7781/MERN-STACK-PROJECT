@@ -3,7 +3,7 @@ const router = express.Router();
 require("../db/conn");
 const User = require("../model/userSchema");
 const bcrypt = require("bcrypt");
-const authenticate = require("./../middleware/authenticate")
+const authenticate = require("./../middleware/authenticate");
 const jwt = require("jsonwebtoken");
 
 // GET => home
@@ -77,15 +77,38 @@ router.post("/signin", async (req, res) => {
 });
 
 // about us
-router.get('/about',authenticate, (req, res) => {
-    console.log("about  route")
-      res.send(req.rootUser); 
+router.get("/about", authenticate, (req, res) => {
+  console.log("about  route");
+  res.send(req.rootUser);
 });
 
 // getting data
-router.get('/getdata',authenticate, (req, res) => {
-      console.log("get  route")
-      res.send(req.rootUser); 
+router.get("/getdata", authenticate, (req, res) => {
+  console.log("get  route");
+  res.send(req.rootUser);
+});
+
+// posting data
+router.post("/contact", authenticate, async (req, res) => {
+  try {
+    const { name, email, phone, message } = req.body;
+    if (!name || !phone || !message || !email) {
+      console.log("error filling data");
+      return res.json({ err: "plz fill the contact form" });
+    }
+    const userContact = await User.findOne({ _id: req.userID });
+
+    if (userContact) {
+      const userMessage = await userContact.addMessage(
+        name,
+        email,
+        phone,
+        message
+      )
+      await userContact.save();
+      res.status(201).json({ message: "contact added successfully"})
+    }
+  } catch (err) {}
 });
 
 module.exports = router;

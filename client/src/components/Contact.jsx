@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 
 import lottie from "lottie-web";
 const Contact = () => {
-  const [userData, setUserData] = useState({name:"",email:"",phone:"",message:""});
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
   const callContact = async () => {
     try {
       console.log("in a try");
@@ -15,9 +20,9 @@ const Contact = () => {
       const data = await res.json();
       setUserData({
         ...userData,
-        name:data.name,
-        email:data.email,
-        phone:data.phone
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
       });
       console.log(data);
       console.log("userdata " + userData);
@@ -30,18 +35,40 @@ const Contact = () => {
     }
   };
 
-
-  const handleInputs=(e) => {
+  const handleInputs = (e) => {
     let name = e.target.name;
     let value = e.target.value;
 
     setUserData({
       ...userData,
-      [name]:value
+      [name]: value,
     });
-  }
+  };
 
-  // 
+  // handling contacts
+  const handleContact = async (e) => {
+    e.preventDefault();
+    const { name, email, phone, message } = userData;
+    const res = await fetch("/contact", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        message,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data) {
+      console.log("message not sent");
+    } else {
+      alert("Message sent");
+      setUserData({ ...userData, message: "" });
+    }
+  };
 
   const ContactContainer = useRef(null);
   useEffect(() => {
@@ -127,7 +154,6 @@ const Contact = () => {
                   autocomplete="off"
                   value={userData.phone}
                   onChange={handleInputs}
-
                 />
               </div>
               <div class="form-group">
@@ -144,7 +170,6 @@ const Contact = () => {
                   placeholder="Your Message"
                   autocomplete="off"
                   onChange={handleInputs}
-
                 />
               </div>
 
